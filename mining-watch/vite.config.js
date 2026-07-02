@@ -1,9 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// ⚠️ IMPORTANT : remplacer par le nom EXACT du repo GitHub utilisé pour Pages.
-// - Si déployé depuis julesrchrd/hackathon        → '/hackathon/'
-// - Si déployé depuis vcheillan/projet8_hackathon → '/projet8_hackathon/'
 const REPO_BASE = '/projet8_hackathon/'
 
 export default defineConfig({
