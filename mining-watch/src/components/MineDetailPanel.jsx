@@ -29,7 +29,7 @@ function buildSentinelUrl(lat, lon, year, delta, offsetLat = 0, offsetLon = 0) {
     PRIORITY: 'leastCC',
     MAXCC: 30,
   })
-  return `/api/copernicus/ogc/wms/${COPERNICUS_INSTANCE_ID}?${params}`
+  return `https://sh.dataspace.copernicus.eu/ogc/wms/${COPERNICUS_INSTANCE_ID}?${params}`
 }
 
 function PanButton({ onClick, children }) {
