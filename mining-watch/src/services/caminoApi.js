@@ -1,4 +1,4 @@
-const CAMINO_API = '/api/camino/titres?domainesIds=m&statutsIds=val,dmi,sup,mod'
+const CAMINO_API = '/api/camino/titres'
 
 function getCentroid(geometry) {
   if (!geometry) return null

@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { X, Satellite, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import { STATUSES } from '../data/mines'
+import { buildCompanyLinks } from '../utils/companyLinks'
 
 const COPERNICUS_INSTANCE_ID = 'c28e4744-c9d0-4ca3-9003-70089fdddbef'
 const YEAR_MIN = 2018
@@ -230,6 +231,14 @@ export default function MineDetailPanel({ mine, onClose }) {
 
 function Content({ mine, onClose }) {
   const status = STATUSES.find(s => s.value === mine.status)
+  const links = Array.isArray(mine.links) ? [...mine.links] : []
+  const fallbackLinks = buildCompanyLinks(mine.company || mine.name)
+  const allLinks = [...links]
+  fallbackLinks.forEach(link => {
+    if (!allLinks.some(existing => existing?.url === link.url)) {
+      allLinks.push(link)
+    }
+  })
 
   return (
     <>
@@ -385,24 +394,35 @@ function Content({ mine, onClose }) {
         )}
 
         {/* Liens */}
-        {mine.links?.length > 0 && (
-          <Section>
-            <SectionTitle>Sources & liens</SectionTitle>
-            <div className="mt-2.5 space-y-1.5">
-              {mine.links.map((link, i) => (
-                <a
-                  key={i}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-xs text-slate-600 underline hover:text-slate-900 transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </Section>
-        )}
+        {(() => {
+          const links = Array.isArray(mine.links) ? [...mine.links] : []
+          const fallbackLinks = buildCompanyLinks(mine.company || mine.name)
+          const allLinks = [...links]
+          fallbackLinks.forEach(link => {
+            if (!allLinks.some(existing => existing?.url === link.url)) {
+              allLinks.push(link)
+            }
+          })
+
+          return allLinks.length > 0 ? (
+            <Section>
+              <SectionTitle>Sources & liens</SectionTitle>
+              <div className="mt-2.5 space-y-1.5">
+                {allLinks.map((link, i) => (
+                  <a
+                    key={i}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-xs text-slate-600 underline hover:text-slate-900 transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </Section>
+          ) : null
+        })()}
       </div>
     </>
   )

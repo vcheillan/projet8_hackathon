@@ -1,17 +1,20 @@
 import { useEffect } from 'react'
-import { MapContainer, TileLayer, Marker, ZoomControl, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, ZoomControl, useMap, useMapEvent } from 'react-leaflet'
 import L from 'leaflet'
 import { STATUSES } from '../data/mines'
 
 const STATUS_COLOR = Object.fromEntries(STATUSES.map(s => [s.value, s.color]))
+const MAX_MARKERS = 1000
 
 function createPinIcon(status, isSelected) {
   const color = STATUS_COLOR[status] || '#6b7280'
   const size = isSelected ? 20 : 10
+  const pulse = status === 'mine active' ? `<span class="mine-pin-pulse" style="background:${color}"></span>` : ''
 
   return L.divIcon({
     html: `
-      <div style="width:${size + 12}px;height:${size + 12}px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+      <div style="position:relative;width:${size + 12}px;height:${size + 12}px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        ${pulse}
         <div style="
           width:${size}px;
           height:${size}px;
@@ -38,6 +41,15 @@ function FlyTo({ mine }) {
   return null
 }
 
+function MapContextListener({ onAddMine }) {
+  useMapEvent('contextmenu', (e) => {
+    if (!onAddMine) return
+    const { latlng } = e
+    onAddMine([latlng.lat, latlng.lng])
+  })
+  return null
+}
+
 function Legend() {
   return (
     <div className="absolute bottom-8 left-4 z-[1000] bg-white/90 backdrop-blur-md border border-gray-200 rounded-lg px-3.5 py-3 space-y-2 shadow-sm">
@@ -55,8 +67,18 @@ function Legend() {
   )
 }
 
-export default function MapView({ mines, selectedMine, onMineSelect }) {
+export default function MapView({ mines, selectedMine, onMineSelect, onAddMine }) {
   const europeBounds = [[34, -12], [55, 30]]
+  const validMines = mines.filter(mine => {
+    const [lat, lon] = mine.coordinates ?? []
+    return lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180
+  })
+  const sortedMines = validMines.slice().sort((a, b) => {
+    const A = a.status === 'mine active' ? 1 : 0
+    const B = b.status === 'mine active' ? 1 : 0
+    return A - B
+  })
+  const displayedMines = sortedMines.length > MAX_MARKERS ? sortedMines.slice(0, MAX_MARKERS) : sortedMines
 
   return (
     <div className="relative h-full w-full">
@@ -67,6 +89,7 @@ export default function MapView({ mines, selectedMine, onMineSelect }) {
         minZoom={4}
         maxZoom={18}
       >
+        {onAddMine && <MapContextListener onAddMine={onAddMine} />}
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
@@ -76,19 +99,14 @@ export default function MapView({ mines, selectedMine, onMineSelect }) {
 
         <ZoomControl position="bottomright" />
 
-        {mines
-          .filter(mine => {
-            const [lat, lon] = mine.coordinates ?? []
-            return lat >= -90 && lat <= 90 && lon >= -180 && lon <= 180
-          })
-          .map(mine => (
-            <Marker
-              key={mine.id}
-              position={mine.coordinates}
-              icon={createPinIcon(mine.status, selectedMine?.id === mine.id)}
-              eventHandlers={{ click: () => onMineSelect(mine) }}
-            />
-          ))}
+        {displayedMines.map(mine => (
+          <Marker
+            key={mine.id}
+            position={mine.coordinates}
+            icon={createPinIcon(mine.status, selectedMine?.id === mine.id)}
+            eventHandlers={{ click: () => onMineSelect(mine) }}
+          />
+        ))}
 
         {selectedMine && <FlyTo mine={selectedMine} />}
       </MapContainer>

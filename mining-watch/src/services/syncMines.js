@@ -9,14 +9,18 @@ import { fetchGeosphereMines } from './geosphereApi'
 import { fetchCgsMines } from './cgsApi'
 import { fetchSwisstopoMines } from './swisstopoApi'
 import { fetchSguMines } from './sguApi'
+import { enrichMineLinks } from '../utils/companyLinks'
+import { normalizeSubstances, mapStatus } from '../utils/classifyMine'
 
 function mineToRow(mine) {
+  const links = enrichMineLinks(mine)
+
   return {
     id:                       mine.id,
     name:                     mine.name,
-    status:                   mine.status,
+    status:                   mapStatus(mine.status) ?? mine.status,
     mineral_type:             mine.mineral_type,
-    substances:               mine.substances,
+    substances:               normalizeSubstances(mine.substances),
     domaine:                  mine.domaine ?? null,
     type_titre:               mine.type_titre ?? null,
     country:                  mine.country,
@@ -28,7 +32,7 @@ function mineToRow(mine) {
     surface_ha:               mine.surface_ha ?? null,
     permits:                  mine.permits ?? [],
     last_update:              mine.last_update ?? null,
-    links:                    mine.links ?? [],
+    links,
     source:                   mine.source ?? 'camino',
     mine_status_raw:          mine.mine_status_raw ?? null,
     mining_start_year:        mine.mining_start_year ?? null,
@@ -127,7 +131,7 @@ export async function loadMinesFromDb() {
     surface_ha:               row.surface_ha,
     permits:                  row.permits ?? [],
     last_update:              row.last_update,
-    links:                    row.links ?? [],
+    links:                    enrichMineLinks({ links: row.links ?? [], company: row.company }),
     source:                   row.source,
     mine_status_raw:          row.mine_status_raw,
     mining_start_year:        row.mining_start_year,

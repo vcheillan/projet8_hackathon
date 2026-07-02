@@ -2,8 +2,10 @@ import { useState, useMemo, useEffect, useCallback } from 'react'
 import Sidebar from './components/Sidebar'
 import MapView from './components/MapView'
 import MineDetailPanel from './components/MineDetailPanel'
+import AddMineForm from './components/AddMineForm'
 import { loadMinesFromDb, syncFromApis } from './services/syncMines'
 import { METALLIC_SUBSTANCES, KNOWN_STATUSES } from './data/mines'
+import { isMetalMine } from './utils/classifyMine'
 
 export default function App() {
   const [mines, setMines] = useState([])
@@ -12,6 +14,7 @@ export default function App() {
   const [error, setError] = useState(null)
   const [lastUpdated, setLastUpdated] = useState(null)
   const [selectedMine, setSelectedMine] = useState(null)
+  const [addCoords, setAddCoords] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [filters, setFilters] = useState({ status: [], substance: [] })
 
@@ -44,16 +47,28 @@ export default function App() {
 
   useEffect(() => { load() }, [load])
 
-  // Pré-filtrage : uniquement les mines métalliques avec un statut connu
+  const handleAddMineCoords = (coords) => {
+    setAddCoords(coords)
+  }
+
+  const handleAddedMine = (mine) => {
+    // optimistic insert into client state
+    setMines(prev => [mine, ...prev])
+  }
+
+  // Pré-filtrage : garder toutes les mines chargées (avec coordonnées valides) et classifier via heuristique
   const metalMines = useMemo(() => mines.filter(mine => {
+    const coords = mine.coordinates
+    if (!Array.isArray(coords) || coords.length !== 2 || !Number.isFinite(coords[0]) || !Number.isFinite(coords[1])) return false
     if (!KNOWN_STATUSES.has(mine.status)) return false
-    return mine.substances.some(s => METALLIC_SUBSTANCES.has(s))
-      || METALLIC_SUBSTANCES.has(mine.mineral_type)
+    return isMetalMine(mine)
   }), [mines])
 
   const availableSubstances = useMemo(() => {
     const set = new Set()
-    metalMines.forEach(m => m.substances.filter(s => METALLIC_SUBSTANCES.has(s)).forEach(s => set.add(s)))
+    metalMines.forEach(m => (m.substances || []).map(s => String(s).toLowerCase()).filter(Boolean).forEach(s => {
+      if (METALLIC_SUBSTANCES.has(s)) set.add(s)
+    }))
     return [...set].sort()
   }, [metalMines])
 
@@ -140,7 +155,15 @@ export default function App() {
           mines={filteredMines}
           selectedMine={selectedMine}
           onMineSelect={m => setSelectedMine(prev => prev?.id === m.id ? null : m)}
+          onAddMine={handleAddMineCoords}
         />
+        {addCoords && (
+          <AddMineForm
+            coords={addCoords}
+            onClose={() => setAddCoords(null)}
+            onAdded={handleAddedMine}
+          />
+        )}
         <MineDetailPanel mine={selectedMine} onClose={() => setSelectedMine(null)} />
       </div>
     </div>
