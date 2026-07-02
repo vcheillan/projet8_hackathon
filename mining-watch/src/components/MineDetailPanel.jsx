@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { X, Satellite, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
+import { X, Satellite, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Pencil } from 'lucide-react'
 import { STATUSES } from '../data/mines'
 import { buildCompanyLinks } from '../utils/companyLinks'
+import AddMineForm from './AddMineForm'
 
 const COPERNICUS_INSTANCE_ID = 'c28e4744-c9d0-4ca3-9003-70089fdddbef'
 const YEAR_MIN = 2018
@@ -213,7 +214,7 @@ const SOURCE_LABELS = {
   sgu:         'SGU MRR · Suède',
 }
 
-export default function MineDetailPanel({ mine, onClose }) {
+export default function MineDetailPanel({ mine, onClose, onMineUpdate }) {
   return (
     <div
       className={`
@@ -229,7 +230,8 @@ export default function MineDetailPanel({ mine, onClose }) {
   )
 }
 
-function Content({ mine, onClose }) {
+function Content({ mine, onClose, onMineUpdate }) {
+  const [isEditing, setIsEditing] = useState(false)
   const status = STATUSES.find(s => s.value === mine.status)
   const links = Array.isArray(mine.links) ? [...mine.links] : []
   const fallbackLinks = buildCompanyLinks(mine.company || mine.name)
@@ -264,12 +266,21 @@ function Content({ mine, onClose }) {
               )}
             </div>
           </div>
-          <button
-            onClick={onClose}
-            className="flex-shrink-0 p-1.5 text-gray-400 hover:text-gray-700 transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsEditing(true)}
+              className="flex-shrink-0 p-1.5 text-gray-400 hover:text-gray-700 transition-colors"
+              title="Modifier la mine"
+            >
+              <Pencil className="w-4 h-4" />
+            </button>
+            <button
+              onClick={onClose}
+              className="flex-shrink-0 p-1.5 text-gray-400 hover:text-gray-700 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -424,6 +435,19 @@ function Content({ mine, onClose }) {
           ) : null
         })()}
       </div>
+
+      {isEditing && (
+        <AddMineForm
+          mode="edit"
+          initialMine={mine}
+          coords={mine.coordinates}
+          onClose={() => setIsEditing(false)}
+          onSaved={(updatedMine) => {
+            onMineUpdate?.(updatedMine)
+            setIsEditing(false)
+          }}
+        />
+      )}
     </>
   )
 }

@@ -9,12 +9,10 @@ const MAX_MARKERS = 1000
 function createPinIcon(status, isSelected) {
   const color = STATUS_COLOR[status] || '#6b7280'
   const size = isSelected ? 20 : 10
-  const pulse = status === 'mine active' ? `<span class="mine-pin-pulse" style="background:${color}"></span>` : ''
 
   return L.divIcon({
     html: `
       <div style="position:relative;width:${size + 12}px;height:${size + 12}px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-        ${pulse}
         <div style="
           width:${size}px;
           height:${size}px;

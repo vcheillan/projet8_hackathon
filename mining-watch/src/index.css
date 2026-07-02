@@ -43,15 +43,3 @@ html, body, #root {
   color: #6b7280 !important;
 }
 
-/* ── Custom mine pin animations ── */
-.mine-pin-pulse {
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  animation: mine-pulse 2.4s ease-out infinite;
-}
-
-@keyframes mine-pulse {
-  0%   { transform: scale(0.7); opacity: 0.5; }
-  100% { transform: scale(2.2); opacity: 0; }
-}

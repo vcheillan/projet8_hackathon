@@ -52,8 +52,12 @@ export default function App() {
   }
 
   const handleAddedMine = (mine) => {
-    // optimistic insert into client state
     setMines(prev => [mine, ...prev])
+  }
+
+  const handleUpdatedMine = (mine) => {
+    setMines(prev => prev.map(item => item.id === mine.id ? mine : item))
+    setSelectedMine(mine)
   }
 
   // Pré-filtrage : garder toutes les mines chargées (avec coordonnées valides) et classifier via heuristique
@@ -164,7 +168,7 @@ export default function App() {
             onAdded={handleAddedMine}
           />
         )}
-        <MineDetailPanel mine={selectedMine} onClose={() => setSelectedMine(null)} />
+        <MineDetailPanel mine={selectedMine} onClose={() => setSelectedMine(null)} onMineUpdate={handleUpdatedMine} />
       </div>
     </div>
   )
