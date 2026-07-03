@@ -20,7 +20,7 @@ Or cette information est **éclatée entre des dizaines de sources nationales h�
 
 ## 💡 La solution
 
-MineWatch agrège les registres miniers officiels de **10 pays européens** dans une base unique, interrogeable via une carte interactive avec :
+MineWatch agrège les registres miniers officiels de **pays européens** dans une base unique, interrogeable via une carte interactive avec :
 
 - 🗺️ **Carte interactive** de tous les titres miniers avec statut administratif (mine active, demande initiale, valide, en modification, survie provisoire)
 - 🔍 **Recherche et filtres** par nom, substance, commune, statut
