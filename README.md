@@ -19,6 +19,7 @@ Le **Critical Raw Materials Act** (CRM Act, mai 2024) redige par la Comission Eu
 - 40 % transformée en Europe
 - 25 % issue du recyclage
 - pas plus de 65% en provenance d’un seul pays tiers<br>
+<br>
 Pour les acteurs de l'exploration minière, connaître en permanence l'état des projets concurrents qui demande quel permis, où, sur quelle substance est un enjeu stratégique.
 
 Or cette information est **éclatée entre des dizaines de sources nationales hétérogènes** : API moderne en France (Camino), CSV quotidiens en Norvège, Shapefiles en Finlande, services ArcGIS en Espagne... Aucun outil ne centralise cette veille à l'échelle européenne.
