@@ -137,13 +137,13 @@ Configuration requise (une seule fois) :
 
 - **Synchronisation manuelle** : la collecte des sources est déclenchée depuis un poste de développement. En production, elle serait automatisée quotidiennement via une Supabase Edge Function avec cron trigger — sans modification du frontend.
 - **Couverture partielle** : l'Allemagne (registres par Länder, non centralisés) et l'Italie (registres régionaux) ne disposent pas de source nationale exploitable. Le Portugal (SIORMINP) et l'Irlande (GSI) sont les prochains candidats.
-- **Historique des évolutions** : l'outil affiche l'état courant des titres. Un suivi des transitions (nouvelle demande, changement de statut) avec alertes email est la prochaine étape naturelle — la structure `sync_log` existe déjà en base.
+- **Historique des évolutions** : l'outil affiche l'état courant des titres. Un suivi des transitions (nouvelle demande, changement de statut) avec alertes email est la prochaine étape naturelle, la structure `sync_log` existe déjà en base.
 - **Détection satellite** : l'imagerie Sentinel-2 est affichée mais non analysée. Un traitement automatique (détection de changement d'emprise) permettrait de repérer les débuts de travaux réels.
 
 ## 👥 Équipe : BONNA Baptiste, CHEILLAN Valentin DAVION-JOUFFRE Josselin, PAYSANT Raphaël, RICHARD Jules
 
-Projet réalisé en 5 jours dans le cadre du hackathon d'informatique de Mines Paris – PSL, sujet n°08 « Outil de veille concurrentielle pour l'industrie minière en Europe » proposé par **Métaux pour l'avenir** (G. Alexandre & Maxime Porlier).
+Projet réalisé en 5 jours dans le cadre du hackathon d'informatique de Mines Paris – PSL, sujet n°8 « Outil de veille concurrentielle pour l'industrie minière en Europe » proposé par **Métaux pour l'avenir** (G. Alexandre & Maxime Porlier).
 
 ## 📄 Licence et données
 
-Code sous licence MIT. Les données agrégées proviennent de sources publiques officielles sous licences ouvertes ; chaque fiche mine référence sa source d'origine.
+Code sous licence MIT. Les données agrégées proviennent de sources publiques officielles sous licences ouvertes, chaque fiche mine référence sa source d'origine.
