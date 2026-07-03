@@ -14,7 +14,12 @@ Outil de surveillance des titres miniers et projets d'extraction en Europe, dév
 
 ## 🎯 Le problème
 
-Le **Critical Raw Materials Act** (CRM Act, mai 2024) fixe des objectifs ambitieux à l'UE pour 2030 : au moins 10 % de la consommation de matières premières critiques extraite sur le sol européen, 40 % transformée en Europe, 25 % issue du recyclage. Pour les acteurs de l'exploration minière, connaître en permanence l'état des projets concurrents qui demande quel permis, où, sur quelle substance est un enjeu stratégique.
+Le **Critical Raw Materials Act** (CRM Act, mai 2024) fixe des objectifs ambitieux à l'UE pour 2030 : 
+- au moins 10 % de la consommation de matières premières critiques extraite sur le sol européen
+- 40 % transformée en Europe
+- 25 % issue du recyclage
+- pas plus de 65% en provenance d’un seul pays tiers
+Pour les acteurs de l'exploration minière, connaître en permanence l'état des projets concurrents qui demande quel permis, où, sur quelle substance est un enjeu stratégique.
 
 Or cette information est **éclatée entre des dizaines de sources nationales hétérogènes** : API moderne en France (Camino), CSV quotidiens en Norvège, Shapefiles en Finlande, services ArcGIS en Espagne... Aucun outil ne centralise cette veille à l'échelle européenne.
 
