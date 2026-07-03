@@ -78,7 +78,7 @@ Chaque source pays est un module indépendant (`src/services/<source>Api.js`) qu
 
 ### Prérequis
 
-- Node.js ≥ 18
+- Node.js version 18 ou plus
 - Un projet [Supabase](https://supabase.com) (gratuit)
 
 ### Lancer en local
