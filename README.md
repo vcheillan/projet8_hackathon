@@ -146,4 +146,4 @@ Projet réalisé en 5 jours dans le cadre du hackathon d'informatique de Mines P
 
 ## 📄 Licence et données
 
-Code sous licence MIT. Les données agrégées proviennent de sources publiques officielles sous licences ouvertes, chaque fiche mine référence sa source d'origine.
+Les données agrégées proviennent de sources publiques officielles sous licences ouvertes, chaque fiche mine référence sa source d'origine
