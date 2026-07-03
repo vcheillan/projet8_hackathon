@@ -2,7 +2,7 @@
 
 **Démo en ligne : [vcheillan.github.io/projet8_hackathon](https://vcheillan.github.io/projet8_hackathon/)**
 
-Outil de surveillance des titres miniers et projets d'extraction en Europe, développé dans le cadre du hackathon Mines Paris – PSL (juillet 2026) pour **Métaux pour l'avenir**, société française d'exploration minière.
+Outil de surveillance des titres miniers et projets d'extraction en Europe, développé dans le cadre du hackathon Mines Paris – PSL (juillet 2026) pour **Métaux pour l'avenir**, startup française d'exploration minière.
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
