@@ -1,4 +1,4 @@
-# ⛏️ MineWatch — Outil de veille concurrentielle minière européenne
+# ⛏️ MineWatch : Outil de veille concurrentielle minière européenne
 
 **Démo en ligne : [vcheillan.github.io/projet8_hackathon](https://vcheillan.github.io/projet8_hackathon/)**
 
