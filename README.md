@@ -14,9 +14,9 @@ Outil de surveillance des titres miniers et projets d'extraction en Europe, dév
 
 ## 🎯 Le problème
 
-Le **Critical Raw Materials Act** (CRM Act, mai 2024) fixe des objectifs ambitieux à l'UE pour 2030 : au moins 10 % de la consommation de matières premières critiques extraite sur le sol européen, 40 % transformée en Europe, 25 % issue du recyclage. Pour les acteurs de l'exploration minière, connaître en permanence l'état des projets concurrents — qui demande quel permis, où, sur quelle substance — est un enjeu stratégique.
+Le **Critical Raw Materials Act** (CRM Act, mai 2024) fixe des objectifs ambitieux à l'UE pour 2030 : au moins 10 % de la consommation de matières premières critiques extraite sur le sol européen, 40 % transformée en Europe, 25 % issue du recyclage. Pour les acteurs de l'exploration minière, connaître en permanence l'état des projets concurrents qui demande quel permis, où, sur quelle substance est un enjeu stratégique.
 
-Or cette information est **éclatée entre des dizaines de sources nationales hétérogènes** : API moderne en France, CSV quotidiens en Norvège, Shapefiles en Finlande, services ArcGIS en Espagne... Aucun outil ne centralise cette veille à l'échelle européenne.
+Or cette information est **éclatée entre des dizaines de sources nationales hétérogènes** : API moderne en France (Camino), CSV quotidiens en Norvège, Shapefiles en Finlande, services ArcGIS en Espagne... Aucun outil ne centralise cette veille à l'échelle européenne.
 
 ## 💡 La solution
 
@@ -70,7 +70,7 @@ Toutes les sources sont **officielles, publiques et sous licence ouverte** (Etal
 └────────────────────────────────────────────────────┘
 ```
 
-**Choix d'architecture** : le frontend est un site statique servi par CDN (GitHub Pages), les données sont servies en temps réel par Supabase, et la synchronisation des sources est un processus séparé. C'est l'architecture standard des SaaS de veille : frontend découplé + API de données + jobs de collecte.
+**Choix d'architecture** : L'architecture est simple : frontend découplé + API de données + jobs de collecte. Le frontend est un site statique servi par CDN (GitHub Pages), les données sont servies en temps réel par Supabase, et la synchronisation des sources est un processus séparé.
 
 Chaque source pays est un module indépendant (`src/services/<source>Api.js`) qui normalise les données vers un schéma commun : identifiant préfixé par source, substances traduites en français, statuts administratifs harmonisés, coordonnées WGS84.
 
