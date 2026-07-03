@@ -144,6 +144,6 @@ Configuration requise (une seule fois) :
 
 Projet réalisé en 5 jours dans le cadre du hackathon d'informatique de Mines Paris – PSL, sujet n°8 « Outil de veille concurrentielle pour l'industrie minière en Europe » proposé par **Métaux pour l'avenir** (G. Alexandre & Maxime Porlier).
 
-## 📄 Licence et données
+## 📄 Données
 
 Les données agrégées proviennent de sources publiques officielles sous licences ouvertes, chaque fiche mine référence sa source d'origine
