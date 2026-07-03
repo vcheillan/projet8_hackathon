@@ -14,7 +14,7 @@ Outil de surveillance des titres miniers et projets d'extraction en Europe, dév
 
 ## 🎯 Le problème
 
-Le **Critical Raw Materials Act** (CRM Act, mai 2024) fixe des objectifs ambitieux à l'UE pour 2030 : 
+Le **Critical Raw Materials Act** (CRM Act, mai 2024) redige par la Comission Europeene fixe des objectifs ambitieux à l'UE pour 2030 : 
 - au moins 10 % de la consommation de matières premières critiques extraite sur le sol européen
 - 40 % transformée en Europe
 - 25 % issue du recyclage
